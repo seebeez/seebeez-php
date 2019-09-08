@@ -5,6 +5,8 @@ namespace SeebeezPHP;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use PhpParser\Node\Expr\Array_;
+use PhpParser\Node\Scalar\String_;
 
 /**
  * PHP Client library for Seebeez API.
@@ -138,19 +140,12 @@ final class Seebeez
         try {
             $res = $client->request($method, $uri, $options);
             return $res->getBody()->getContents();
-        }
-        catch (Exception $e) {
-
-        }
-        catch (GuzzleException $e) {
-            
-        }
-        if ($e !== null) {
+        } catch (Exception | GuzzleException $e) {
             $exception = $this->_exception;
             $exception($e);
             return null;
         }
-        return null;
+
     }
 
     /**
