@@ -1,4 +1,4 @@
-# Seebeez Go 
+# Seebeez PHP
 
 [![Build Status](https://travis-ci.com/seebeez/seebeez-php.svg?branch=master)](https://travis-ci.com/seebeez/seebeez-php)
 [![Coverage Status](https://coveralls.io/repos/github/seebeez/seebeez-php/badge.svg?branch=master)](https://coveralls.io/github/seebeez/seebeez-php?branch=master)
