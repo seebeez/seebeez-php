@@ -7,8 +7,13 @@ Seebeez is a super fast transcoding service made for developers for converting a
 
 ## Contents
 
+- [Requirements](#requirements)
 - [Installation](#installation)
 - [Quick-start](#quick-start)
+
+## Requirements
+
+This package requires you to have PHP version 7.0+ installed.
 
 ## Installation
 
