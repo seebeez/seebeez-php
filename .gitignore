@@ -1,0 +1,5 @@
+/vendor/
+.coveralls.yml
+.idea
+composer.lock
+build

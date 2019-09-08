@@ -1,0 +1,24 @@
+{
+    "name": "seebeez/seebeez-php",
+    "description": "php client library for seebeez-api",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Kazi Lotus",
+            "email": "kazilotus@hotmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ext-json": "^1.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8",
+        "php-coveralls/php-coveralls": "2.1.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "SeebeezPHP\\": "src/"
+        }
+    }
+}
