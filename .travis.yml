@@ -1,8 +1,9 @@
 # .travis.yml
 language: php
 php:
+  - 7.2
   # - 5.5
-  - 5.4
+  # - 5.4
   # - 5.3
 
 install:
