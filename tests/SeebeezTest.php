@@ -116,7 +116,7 @@ final class SeebeezTest extends TestCase
      * 
      * @return mixed
      */
-    protected static function callMethod(Object $obj, string $name, array $args)
+    protected static function callMethod($obj, string $name, array $args)
     {
         $class = new \ReflectionClass($obj);
         $method = $class->getMethod($name);
