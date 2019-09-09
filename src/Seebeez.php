@@ -38,8 +38,9 @@ final class Seebeez
     {
 
         if (filter_var($api_url, FILTER_VALIDATE_URL) === false) {
-            $exception = $this->_exception;
-            $exception(new Exception('Seebeez API URL is invalid'));
+            // $exception = $this->_exception;
+            // $exception(new Exception('Seebeez API URL is invalid'));
+            throw new Exception('Seebeez API URL is invalid');
         }
 
         $this->_api_url = $api_url;
@@ -54,10 +55,10 @@ final class Seebeez
      * 
      * @return null
      */
-    public function exception(callable $exception)
-    {
-        $this->_exception = $exception;
-    }
+    // public function exception(callable $exception)
+    // {
+    //     $this->_exception = $exception;
+    // }
 
     /**
      * Create and dispatch a job
@@ -122,7 +123,7 @@ final class Seebeez
     private function _request(string $method, string $uri, array $params = [])
     {
 
-        $uri = (strpos($uri, '/') === 0) ? $this->_api_url : $this->_api_url . '/' ;
+        $uri = (strpos($uri, '/') === 0) ? $this->_api_url . $uri : $this->_api_url . '/' . $uri ;
 
         $options = [
             'body' => json_encode($params),
@@ -137,15 +138,27 @@ final class Seebeez
         ];
 
         $client = new Client();
-        try {
+        // try {
             $res = $client->request($method, $uri, $options);
             return $res->getBody()->getContents();
-        } catch (Exception | GuzzleException $e) {
-            $exception = $this->_exception;
-            $exception($e);
-            return null;
-        }
+        // } catch (Exception | GuzzleException $e) {
+        //     $exception = $this->_exception;
+        //     $exception($e);
+        //     return null;
+        // }
 
+    }
+
+    /**
+     * Set ID of current job instance
+     * 
+     * @param string $id ID of seebeez instance
+     * 
+     * @return void
+     */
+    public function setId(string $id): void
+    {
+        $this->_job_id = $id;
     }
 
     /**
@@ -156,18 +169,5 @@ final class Seebeez
     public function getId(): string
     {
         return $this->_job_id;
-    }
-
-    /**
-     * Test Function
-     *
-     * @param int $a first integer
-     * @param int $b second integer
-     *
-     * @return int
-     */
-    public static function sum(int $a, int $b): int
-    {
-        return $a + $b;
     }
 }
