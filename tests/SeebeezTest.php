@@ -77,6 +77,18 @@ final class SeebeezTest extends TestCase
     }
 
     /**
+     * Test simple request with leading forward slash
+     * 
+     * @return void
+     */
+    public function testCanRequestWithSlash(): void
+    {
+        $sbz = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', '');
+        $request = self::callMethod($sbz, '_request', ["POST", '/', []]);
+        $this->assertEquals("test", $request);
+    }
+
+    /**
      * Test invalid url request exception
      * 
      * @return void
