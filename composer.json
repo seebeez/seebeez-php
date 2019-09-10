@@ -2,6 +2,8 @@
     "name": "seebeez/seebeez-php",
     "description": "php client library for seebeez-api",
     "type": "library",
+    "keywords": ["seebeez", "php", "php7", "php-library", "php-package", "transcoding"],
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Kazi Lotus",
