@@ -64,13 +64,14 @@ final class Seebeez
      * Create and dispatch a job
      *
      * @param string $config Encoded parameters body for the API
+     * @param string $method HTTP request method
      *
      * @return array
      */
-    public function create(string $config): array
+    public function create(string $config, string $method = "POST"): array 
     {
         $options = json_decode($config, true);
-        $json = $this->_request("POST", "/job", $options);
+        $json = $this->_request($method, "/job", $options);
 
         $body = json_decode($json, true);
         if (isset($body['id'])) {
@@ -84,25 +85,16 @@ final class Seebeez
     /**
      * Get current job progress from API
      * 
-     * @param string $jid Seebeez job ID
-     * 
      * @return array
      */
-    public function get(string $jid): array
+    public function get(): array 
     {
+        $jid = $this->_job_id;
         $json = $this->_request("GET", "/job/$jid");
 
-        $response = json_decode($json, true);
-        if (isset($response['data'])) {
-            $data = $response['data'];
-            return $data;
-        }
-
-        $jid = $this->_job_id;
-        $response = $this->_request("GET", "/job/$jid");
-
-        if (isset($response['data'])) {
-            $data = $response['data'];
+        $body = json_decode($json, true);
+        if (isset($body['data'])) {
+            $data = $body['data'];
             return $data;
         }
 

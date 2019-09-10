@@ -34,35 +34,42 @@ final class SeebeezTest extends TestCase
     }
 
     /**
-     * Seebeez Class constructor
+     * Test job can be dispatched
      * 
      * @return void
      */
-    // public function testCanCreate(): void
-    // {
-    //     $test_config = [];
-    //$s = new Seebeez('http://www.mocky.io/v2/5d76105f3200005600297826', 'test');
-    //     $res = $sbz->create(json_encode($test_config));
-    //     print_r($res);
-    //     // $this->assertEquals();
-    // }
+    public function testCanCreate(): void
+    {
+        $sbz = new Seebeez('http://www.mocky.io/v2/5d76105f3200005600297826', '');
+        $res = $sbz->create(json_encode([]), "GET", "/");
+        $this->assertEquals('dispatched', $res['status']);
+    }
 
     /**
-     * Seebeez Class constructor
+     * Test job can be requested
      * 
      * @return void
      */
-    // public function testCanGet(): void
-    // {
-    //     try {
-    //         $test_config = [];
-    //         $s = new Seebeez('https://alpha.seebeez.com/api/v1', 'test');
-    //         $res = $s->create(json_encode($test_config));
-    //     } catch (Exception $e) {
-    //         $message = $e->getMessage();
-    //     }
-    //     $this->assertContains('401 Unauthorized', $message);
-    // }
+    public function testCanGet(): void
+    {
+        $sbz = new Seebeez('http://www.mocky.io/v2/5d77125d320000d272297d74', '');
+        $sbz->setId('test-id');
+        $res = $sbz->get();
+        $this->assertEquals('8e9c468d-250d-41b6-b2c2-f16a55fd27f6', $res['id']);
+    }
+
+    /**
+     * Test invalid response returns empty array
+     * 
+     * @return void
+     */
+    public function testCanGetInvalidResponse(): void
+    {
+        $sbz = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', '');
+        $sbz->setId('test-id');
+        $res = $sbz->get();
+        $this->assertEquals([], $res);
+    }
 
     /**
      * Test simple request
@@ -73,18 +80,6 @@ final class SeebeezTest extends TestCase
     {
         $sbz = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', '');
         $request = self::callMethod($sbz, '_request', ["POST", '', []]);
-        $this->assertEquals("test", $request);
-    }
-
-    /**
-     * Test simple request with leading forward slash
-     * 
-     * @return void
-     */
-    public function testCanRequestWithSlash(): void
-    {
-        $sbz = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', '');
-        $request = self::callMethod($sbz, '_request', ["POST", '/', []]);
         $this->assertEquals("test", $request);
     }
 
