@@ -11,6 +11,7 @@
     "minimum-stability": "dev",
     "require-dev": {
         "phpunit/phpunit": "*",
+        "codacy/coverage": "dev-master",
         "php-coveralls/php-coveralls": "2.1.x-dev"
     },
     "autoload": {
