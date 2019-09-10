@@ -71,8 +71,8 @@ final class SeebeezTest extends TestCase
      */
     public function testCanRequest(): void
     {
-        $s = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', 'test');
-        $request = self::callMethod($s, '_request', ["POST", '', []]);
+        $sbz = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', '');
+        $request = self::callMethod($sbz, '_request', ["POST", '', []]);
         $this->assertEquals("test", $request);
     }
 
@@ -84,8 +84,8 @@ final class SeebeezTest extends TestCase
     public function testRequestInvalidURLException(): void
     {
         try {
-            $s = new Seebeez('https://test', 'test');
-            $request = self::callMethod($s, '_request', ["POST", '', []]);
+            $sbz = new Seebeez('https://test', '');
+            self::callMethod($sbz, '_request', ["POST", '', []]);
         } catch (Exception $e) {
             $message = $e->getMessage();
         }
@@ -100,9 +100,9 @@ final class SeebeezTest extends TestCase
     public function testSetGetID(): void
     {
         $test_id = 12345;
-        $s = new Seebeez('https://localhost', 'test');
-        $s->setId($test_id);
-        $id = $s->getId();
+        $sbz = new Seebeez('https://localhost', '');
+        $sbz->setId($test_id);
+        $id = $sbz->getId();
     
         $this->assertEquals($test_id, $id);
     }

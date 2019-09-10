@@ -21,7 +21,7 @@ use PhpParser\Node\Scalar\String_;
 final class Seebeez
 {
 
-    private $_exception;
+    // private $_exception;
 
     private $_api_url;
     private $_api_token;
@@ -84,14 +84,13 @@ final class Seebeez
     /**
      * Get current job progress from API
      * 
-     * @param string $id Seebeez job ID
+     * @param string $jid Seebeez job ID
      * 
      * @return array
      */
-    public function get(string $id): array
+    public function get(string $jid): array
     {
-
-        $json = $this->_request("GET", "/job/$id");
+        $json = $this->_request("GET", "/job/$jid");
 
         $response = json_decode($json, true);
         if (isset($response['data'])) {
@@ -99,8 +98,8 @@ final class Seebeez
             return $data;
         }
 
-        $id = $this->_job_id;
-        $response = $this->_request("GET", "/job/$id");
+        $jid = $this->_job_id;
+        $response = $this->_request("GET", "/job/$jid");
 
         if (isset($response['data'])) {
             $data = $response['data'];
@@ -108,7 +107,6 @@ final class Seebeez
         }
 
         return [];
-
     }
 
     /**
@@ -122,7 +120,6 @@ final class Seebeez
      */
     private function _request(string $method, string $uri, array $params = [])
     {
-
         $uri = (strpos($uri, '/') === 0) 
         ? $this->_api_url . $uri 
         : $this->_api_url . '/' . $uri;
@@ -148,19 +145,18 @@ final class Seebeez
         //     $exception($e);
         //     return null;
         // }
-
     }
 
     /**
      * Set ID of current job instance
      * 
-     * @param string $id ID of seebeez instance
+     * @param string $jid ID of seebeez instance
      * 
      * @return void
      */
-    public function setId(string $id): void
+    public function setId(string $jid): void
     {
-        $this->_job_id = $id;
+        $this->_job_id = $jid;
     }
 
     /**
