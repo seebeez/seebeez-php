@@ -114,9 +114,9 @@ final class SeebeezTest extends TestCase
         $test_id = 12345;
         $sbz = new Seebeez('https://localhost', '');
         $sbz->setId($test_id);
-        $id = $sbz->getId();
+        $jid = $sbz->getId();
     
-        $this->assertEquals($test_id, $id);
+        $this->assertEquals($test_id, $jid);
     }
 
     /**
