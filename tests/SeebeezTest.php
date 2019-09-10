@@ -41,7 +41,7 @@ final class SeebeezTest extends TestCase
     // public function testCanCreate(): void
     // {
     //     $test_config = [];
-    //     $s = new Seebeez('http://www.mocky.io/v2/5d76105f3200005600297826', 'test');
+    //$s = new Seebeez('http://www.mocky.io/v2/5d76105f3200005600297826', 'test');
     //     $res = $sbz->create(json_encode($test_config));
     //     print_r($res);
     //     // $this->assertEquals();

@@ -123,7 +123,9 @@ final class Seebeez
     private function _request(string $method, string $uri, array $params = [])
     {
 
-        $uri = (strpos($uri, '/') === 0) ? $this->_api_url . $uri : $this->_api_url . '/' . $uri ;
+        $uri = (strpos($uri, '/') === 0) 
+        ? $this->_api_url . $uri 
+        : $this->_api_url . '/' . $uri;
 
         $options = [
             'body' => json_encode($params),
