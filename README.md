@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/seebeez/seebeez-php.svg?branch=master)](https://travis-ci.com/seebeez/seebeez-php)
 [![Coverage Status](https://coveralls.io/repos/github/seebeez/seebeez-php/badge.svg?branch=master)](https://coveralls.io/github/seebeez/seebeez-php?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ab4eb13f117c41f190a1a6d915935921)](https://www.codacy.com/manual/kazilotus/seebeez-php?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=seebeez/seebeez-php&amp;utm_campaign=Badge_Grade)
 
 Seebeez is a super fast transcoding service made for developers for converting all types of file formats.
 
