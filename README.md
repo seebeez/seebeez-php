@@ -8,9 +8,9 @@ Seebeez is a super fast transcoding service made for developers for converting a
 
 ## Contents
 
--  [Requirements](#requirements)
--  [Installation](#installation)
--  [Quick-start](#quick-start)
+-   [Requirements](#requirements)
+-   [Installation](#installation)
+-   [Quick-start](#quick-start)
 
 ## Requirements
 
