@@ -2,12 +2,6 @@
 
 namespace SeebeezPHP;
 
-use Exception;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
-use PhpParser\Node\Expr\Array_;
-use PhpParser\Node\Scalar\String_;
-
 /**
  * PHP Client library for Seebeez API.
  * 
@@ -18,60 +12,36 @@ use PhpParser\Node\Scalar\String_;
  * @version  Release: @1.0@
  * @link     https://seebeez.com
  */
-final class Seebeez
+final class Seebeez extends Helper
 {
 
-    // private $_exception;
-
-    private $_api_url;
-    private $_api_token;
+    protected $api_url = "https://beta.seebeez.com/api/v1";
 
     private $_job_id;
 
     /**
      * Seebeez Class constructor
      * 
-     * @param string $api_url   API url for seebeez
-     * @param string $api_token API token
+     * @param string $api_url API url for seebeez
      */
-    public function __construct($api_url = '', $api_token = '')
+    public function __construct($api_url = null)
     {
-
-        if (filter_var($api_url, FILTER_VALIDATE_URL) === false) {
-            // $exception = $this->_exception;
-            // $exception(new Exception('Seebeez API URL is invalid'));
-            throw new Exception('Seebeez API URL is invalid');
+        if ($api_url != null) {
+            $this->api_url = $api_url;
         }
-
-        $this->_api_url = $api_url;
-        $this->_api_token = $api_token;
-
     }
-
-    /**
-     * Callable for forwarding exceptions
-     * 
-     * @param callable $exception Exception is passed in here
-     * 
-     * @return null
-     */
-    // public function exception(callable $exception)
-    // {
-    //     $this->_exception = $exception;
-    // }
 
     /**
      * Create and dispatch a job
      *
      * @param string $config Encoded parameters body for the API
-     * @param string $method HTTP request method
      *
      * @return array
      */
-    public function create(string $config, string $method = "POST"): array 
+    public function create(string $config): array 
     {
         $options = json_decode($config, true);
-        $json = $this->_request($method, "/job", $options);
+        $json = $this->request("POST", "/job", $options);
 
         $body = json_decode($json, true);
         if (isset($body['id'])) {
@@ -81,7 +51,6 @@ final class Seebeez
         return $body;
     }
 
-
     /**
      * Get current job progress from API
      * 
@@ -90,7 +59,7 @@ final class Seebeez
     public function get(): array 
     {
         $jid = $this->_job_id;
-        $json = $this->_request("GET", "/job/$jid");
+        $json = $this->request("GET", "/job/$jid");
 
         $body = json_decode($json, true);
         if (isset($body['data'])) {
@@ -102,45 +71,19 @@ final class Seebeez
     }
 
     /**
-     * Make the authenticated HTTP request to seebeez API
+     * Set Seebeez Auth Token of current job instance
      * 
-     * @param string $method HTTP request type  
-     * @param string $uri    API endpoint
-     * @param array  $params API param body
+     * @param string $token API token
      * 
-     * @return mixed|null|\Psr\Http\Message\ResponseInterface
+     * @return void
      */
-    private function _request(string $method, string $uri, array $params = [])
+    public function setToken(string $token): void
     {
-        $uri = (strpos($uri, '/') === 0) 
-        ? $this->_api_url . $uri 
-        : $this->_api_url . '/' . $uri;
-
-        $options = [
-            'body' => json_encode($params),
-            'headers' => [
-                'Authorization' => 'Bearer ' . $this->_api_token,
-                'User-Agent'    => 'SeebeezClient/1.0',
-                'Accept'        => 'application/json',
-                'Content-Type'  => 'application/json',
-                'Cache-Control' => 'no-cache',
-            ],
-            'verify' => false
-        ];
-
-        $client = new Client();
-        // try {
-            $res = $client->request($method, $uri, $options);
-            return $res->getBody()->getContents();
-        // } catch (Exception | GuzzleException $e) {
-        //     $exception = $this->_exception;
-        //     $exception($e);
-        //     return null;
-        // }
+        $this->api_token = $token;
     }
 
     /**
-     * Set ID of current job instance
+     * Set a new ID for job instance
      * 
      * @param string $jid ID of seebeez instance
      * 

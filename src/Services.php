@@ -16,19 +16,21 @@ use GuzzleHttp\Exception\GuzzleException;
  * @version  Release: @1.0@
  * @link     https://seebeez.com
  */
-final class Services
+final class Services extends Helper
 {
 
-    private $_api_url = 'https://service.seebeez.com/apps';
+    protected $api_url = 'https://service.seebeez.com/apps';
 
     /**
      * Seebeez Services Class constructor
      * 
-     * @return void
+     * @param string $api_url API url for seebeez
      */
-    public function __construct()
+    public function __construct($api_url = null)
     {
-        return;
+        if ($api_url != null) {
+            $this->api_url = $api_url;
+        }
     }
 
     /**
@@ -52,47 +54,10 @@ final class Services
             'format' => $format
         ];
 
-        $json = $this->_request($method, $app_endpoint, $params);
+        $json = $this->request($method, $app_endpoint, $params);
         $body = json_decode($json, true);
 
         return $body;
-    }
-
-    /**
-     * Make the HTTP request to Seebeez services API
-     * 
-     * @param string $method HTTP request type  
-     * @param string $uri    API endpoint
-     * @param array  $params API param body
-     * 
-     * @return mixed|null|\Psr\Http\Message\ResponseInterface
-     */
-    private function _request(string $method, string $uri, array $params = [])
-    {
-        $uri = (strpos($uri, '/') === 0) 
-        ? $this->_api_url . $uri 
-        : $this->_api_url . '/' . $uri;
-
-        $options = [
-            'body' => json_encode($params),
-            'headers' => [
-                'User-Agent'    => 'SeebeezClient/1.0',
-                'Accept'        => 'application/json',
-                'Content-Type'  => 'application/json',
-                'Cache-Control' => 'no-cache',
-            ],
-            'verify' => false
-        ];
-
-        $client = new Client();
-        // try {
-            $res = $client->request($method, $uri, $options);
-            return $res->getBody()->getContents();
-        // } catch (Exception | GuzzleException $e) {
-        //     $exception = $this->_exception;
-        //     $exception($e);
-        //     return null;
-        // }
     }
 
     /**
@@ -104,7 +69,7 @@ final class Services
      */
     public function setAPI(string $url): void
     {
-        $this->_api_url = $url;
+        $this->api_url = $url;
     }
 
 }
