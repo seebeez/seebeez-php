@@ -1,10 +1,10 @@
 <?php
 
-use SeebeezPHP\Seebeez;
-use PHPUnit\Framework\TestCase;
+namespace SeebeezPHP\Tests;
 
 use Exception;
-use GuzzleHttp\Exception\ClientException;
+use ReflectionException;
+use SeebeezPHP\Seebeez;
 
 /**
  * PHP test class for Seebeez Library.
@@ -16,87 +16,64 @@ use GuzzleHttp\Exception\ClientException;
  * @version  Release: @1.0@
  * @link     https://seebeez.com
  */
-final class SeebeezTest extends TestCase
+final class SeebeezTest extends Helper
 {
-    /**
-     * Seebeez Class constructor
-     * 
-     * @return void
-     */
-    public function testConstructorThrowsExceptionOnInvalidURL(): void
-    {
-        try {
-            new Seebeez('test', 'test');
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains("Seebeez API URL is invalid", $message);
-    }
 
     /**
      * Test job can be dispatched
-     * 
+     *
      * @return void
+     * @throws Exception
      */
     public function testCanCreate(): void
     {
-        $sbz = new Seebeez('http://www.mocky.io/v2/5d76105f3200005600297826', '');
-        $res = $sbz->create(json_encode([]), "GET", "/");
+        $sbz = new Seebeez(self::MOCK_API);
+        $res = $sbz->create(json_encode([]));
         $this->assertEquals('dispatched', $res['status']);
     }
 
     /**
      * Test job can be requested
-     * 
+     *
      * @return void
+     * @throws Exception
      */
     public function testCanGet(): void
     {
-        $sbz = new Seebeez('http://www.mocky.io/v2/5d77125d320000d272297d74', '');
-        $sbz->setId('test-id');
+        $sbz = new Seebeez(self::MOCK_API);
+        $sbz->setId('8e9c468d-250d-41b6-b2c2-f16a55fd27f6');
         $res = $sbz->get();
         $this->assertEquals('8e9c468d-250d-41b6-b2c2-f16a55fd27f6', $res['id']);
     }
 
     /**
      * Test invalid response returns empty array
-     * 
+     *
      * @return void
+     * @throws Exception
      */
     public function testCanGetInvalidResponse(): void
     {
-        $sbz = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', '');
+        $sbz = new Seebeez(self::MOCK_API);
         $sbz->setId('test-id');
         $res = $sbz->get();
         $this->assertEquals([], $res);
     }
 
     /**
-     * Test simple request
-     * 
+     * Test api token setter
+     *
      * @return void
+     * @throws ReflectionException
      */
-    public function testCanRequest(): void
+    public function testSetToken(): void
     {
-        $sbz = new Seebeez('http://www.mocky.io/v2/5d760c763100006f90950825', '');
-        $request = self::callMethod($sbz, '_request', ["POST", '', []]);
-        $this->assertEquals("test", $request);
-    }
-
-    /**
-     * Test invalid url request exception
-     * 
-     * @return void
-     */
-    public function testRequestInvalidURLException(): void
-    {
-        try {
-            $sbz = new Seebeez('https://test', '');
-            self::callMethod($sbz, '_request', ["POST", '', []]);
-        } catch (Exception $e) {
-            $message = $e->getMessage();
-        }
-        $this->assertContains("Could not resolve host: test", $message);
+        $test_token = 12345;
+        $sbz = new Seebeez('https://localhost');
+        $sbz->setToken($test_token);
+        $token = $this->getProperty($sbz, 'api_token');
+    
+        $this->assertEquals($test_token, $token);
     }
 
     /**
@@ -107,27 +84,11 @@ final class SeebeezTest extends TestCase
     public function testSetGetID(): void
     {
         $test_id = 12345;
-        $sbz = new Seebeez('https://localhost', '');
+        $sbz = new Seebeez('https://localhost');
         $sbz->setId($test_id);
         $jid = $sbz->getId();
     
         $this->assertEquals($test_id, $jid);
     }
 
-    /**
-     * Helper to make private methods accessible
-     * 
-     * @param object $obj  Object instance
-     * @param string $name Function name
-     * @param array  $args Function arguments
-     * 
-     * @return mixed
-     */
-    protected static function callMethod($obj, string $name, array $args)
-    {
-        $class = new \ReflectionClass($obj);
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        return $method->invokeArgs($obj, $args);
-    }
 }
