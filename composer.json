@@ -11,6 +11,9 @@
         }
     ],
     "minimum-stability": "dev",
+    "require": {
+        "ext-json": "*"
+    },
     "require-dev": {
         "phpunit/phpunit": "*",
         "codacy/coverage": "dev-master",
@@ -19,6 +22,11 @@
     "autoload": {
         "psr-4": {
             "SeebeezPHP\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SeebeezPHP\\Tests\\": "tests/"
         }
     }
 }
