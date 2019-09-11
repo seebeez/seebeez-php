@@ -43,7 +43,6 @@ final class HelperTest extends Helper
     public function testRequestInvalidURLException(): void
     {
         $this->expectException(ConnectException::class);
-        $this->expectExceptionMessageMatches('/Could not resolve host/');
         $sbz = new Seebeez('https://test');
         $sbz->exception(
             function ($e) {
