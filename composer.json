@@ -12,7 +12,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "ext-json": "*"
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
