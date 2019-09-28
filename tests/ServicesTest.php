@@ -2,7 +2,6 @@
 
 namespace SeebeezPHP\Tests;
 
-use SeebeezPHP\Seebeez;
 use SeebeezPHP\Services;
 use ReflectionException;
 
