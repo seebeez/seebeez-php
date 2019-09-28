@@ -80,12 +80,7 @@ final class Seebeez extends Helper
         $jid = $this->_job_id;
         $json = $this->request("DELETE", "/job/$jid");
 
-        $body = json_decode($json, true);
-        if (isset($body['status'])) {
-            return $body;
-        }
-
-        return [];
+        return json_decode($json, true);
     }
 
     /**
