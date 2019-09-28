@@ -71,6 +71,25 @@ final class Seebeez extends Helper
     }
 
     /**
+     * Cancel current job progress from API
+     * 
+     * @return array
+     */
+    public function cancel(): array 
+    {
+        $jid = $this->_job_id;
+        $json = $this->request("DELETE", "/job/$jid");
+
+        $body = json_decode($json, true);
+        if (isset($body['data'])) {
+            $data = $body['data'];
+            return $data;
+        }
+
+        return [];
+    }
+
+    /**
      * Set Seebeez Auth Token of current job instance
      * 
      * @param string $token API token

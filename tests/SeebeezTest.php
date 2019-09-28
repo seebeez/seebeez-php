@@ -47,6 +47,20 @@ final class SeebeezTest extends Helper
     }
 
     /**
+     * Test job can be requested
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function testCanCancel(): void
+    {
+        $sbz = new Seebeez(self::MOCK_API);
+        $sbz->setId('8e9c468d-250d-41b6-b2c2-f16a55fd27f6');
+        $res = $sbz->cancel();
+        $this->assertEquals('successful', $res['status']);
+    }
+
+    /**
      * Test invalid response returns empty array
      *
      * @return void
