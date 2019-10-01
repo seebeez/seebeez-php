@@ -2,27 +2,29 @@
 
 namespace SeebeezPHP\Tests;
 
-use SeebeezPHP\Services;
 use ReflectionException;
+use SeebeezPHP\Services;
 
 /**
  * PHP test class for Services Library.
  *
  * @category Test
- * @package  SeebeezPHP
+ *
  * @author   Kazi Lotus <kazilotus@hotmail.com>
  * @license  https://www.apache.org/licenses/LICENSE-2.0.txt Apache-2.0
+ *
  * @version  Release: @1.0@
+ *
  * @link     https://seebeez.com
  */
 final class ServicesTest extends Helper
 {
-
     /**
-     * Test youtubeDL service
+     * Test youtubeDL service.
+     *
+     * @throws ReflectionException
      *
      * @return void
-     * @throws ReflectionException
      */
     public function testServiceYoutubeDL(): void
     {
@@ -32,10 +34,11 @@ final class ServicesTest extends Helper
     }
 
     /**
-     * Test api token setter
+     * Test api token setter.
+     *
+     * @throws ReflectionException
      *
      * @return void
-     * @throws ReflectionException
      */
     public function testSetToken(): void
     {
@@ -46,5 +49,4 @@ final class ServicesTest extends Helper
 
         $this->assertEquals($test_api, $url);
     }
-
 }

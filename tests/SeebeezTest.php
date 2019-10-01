@@ -8,22 +8,24 @@ use SeebeezPHP\Seebeez;
 
 /**
  * PHP test class for Seebeez Library.
- * 
+ *
  * @category Test
- * @package  SeebeezPHP
+ *
  * @author   Kazi Lotus <kazilotus@hotmail.com>
  * @license  https://www.apache.org/licenses/LICENSE-2.0.txt Apache-2.0
+ *
  * @version  Release: @1.0@
+ *
  * @link     https://seebeez.com
  */
 final class SeebeezTest extends Helper
 {
-
     /**
-     * Test job can be dispatched
+     * Test job can be dispatched.
+     *
+     * @throws Exception
      *
      * @return void
-     * @throws Exception
      */
     public function testCanCreate(): void
     {
@@ -33,10 +35,11 @@ final class SeebeezTest extends Helper
     }
 
     /**
-     * Test job can be requested
+     * Test job can be requested.
+     *
+     * @throws Exception
      *
      * @return void
-     * @throws Exception
      */
     public function testCanGet(): void
     {
@@ -47,10 +50,11 @@ final class SeebeezTest extends Helper
     }
 
     /**
-     * Test invalid response returns empty array
+     * Test invalid response returns empty array.
+     *
+     * @throws Exception
      *
      * @return void
-     * @throws Exception
      */
     public function testCanGetInvalidResponse(): void
     {
@@ -61,10 +65,11 @@ final class SeebeezTest extends Helper
     }
 
     /**
-     * Test job can be cancelled
+     * Test job can be cancelled.
+     *
+     * @throws Exception
      *
      * @return void
-     * @throws Exception
      */
     public function testCanCancel(): void
     {
@@ -75,10 +80,11 @@ final class SeebeezTest extends Helper
     }
 
     /**
-     * Test api token setter
+     * Test api token setter.
+     *
+     * @throws ReflectionException
      *
      * @return void
-     * @throws ReflectionException
      */
     public function testSetToken(): void
     {
@@ -86,13 +92,13 @@ final class SeebeezTest extends Helper
         $sbz = new Seebeez('https://localhost');
         $sbz->setToken($test_token);
         $token = $this->getProperty($sbz, 'api_token');
-    
+
         $this->assertEquals($test_token, $token);
     }
 
     /**
-     * Test job Id setter and getter
-     * 
+     * Test job Id setter and getter.
+     *
      * @return void
      */
     public function testSetGetID(): void
@@ -101,8 +107,7 @@ final class SeebeezTest extends Helper
         $sbz = new Seebeez('https://localhost');
         $sbz->setId($test_id);
         $jid = $sbz->getId();
-    
+
         $this->assertEquals($test_id, $jid);
     }
-
 }
